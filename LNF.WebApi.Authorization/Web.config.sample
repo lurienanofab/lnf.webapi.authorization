@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!--
+  For more information on how to configure your ASP.NET application, please visit
+  http://go.microsoft.com/fwlink/?LinkId=301879
+  -->
+<configuration>
+  <configSections>
+    <sectionGroup name="lnf">
+      <section name="swagger" type="LNF.WebApi.Swagger.SwaggerConfigurationSection, LNF.WebApi"/>
+      <section name="providers" type="LNF.ProvidersSection, LNF"/>
+      <section name="redis" type="LNF.Impl.Redis.RedisConfigurationSection, LNF.Impl"/>
+    </sectionGroup>
+  </configSections>
+
+  <lnf>
+    <swagger title="LNF.WebApi.Authorization" version="v1"/>
+    <providers production="false">
+      <context type="LNF.Impl.WebContextProvider, LNF.Impl" loginUrl="/login"/>
+      <dataAccess type="LNF.Impl.NHibernateWebDataAccess, LNF.Impl"/>
+      <encryption type="LNF.Impl.EncryptionProvider, LNF.Impl"/>
+      <email type="LNF.Impl.Email.EmailProvider, LNF.Impl" host="127.0.0.1"/>
+      <log type="LNF.Impl.Logging.ServiceLogProvider, LNF.Impl" name="LNF.WebApi.Authorization" enabled="true"/>
+      <modelFactory type="LNF.Impl.ModelFactory.ValueInjecterModelFactory, LNF.Impl"/>
+    </providers>
+    <redis>
+      <connection host="cachesvr" databaseId="5"/>
+    </redis>
+  </lnf>
+
+  <appSettings>
+    <add key="as:Issuer" value="http://lnf-dev.eecs.umich.edu"/>
+    <add key="MongoConnectionString" value="mongodb://*****:*****@localhost/"/>
+  </appSettings>
+
+  <connectionStrings>
+    <add name="cnSselData" connectionString="Server=*****;Database=*****;User ID=*****;Password=*****" providerName="System.Data.SqlClient"/>
+  </connectionStrings>
+
+  <system.web>
+    <compilation debug="true" targetFramework="4.6.1"/>
+    <httpRuntime targetFramework="4.6.1"/>
+    <customErrors mode="Off"/>
+  </system.web>
+
+  <system.webServer>
+    <handlers>
+      <remove name="ExtensionlessUrlHandler-Integrated-4.0"/>
+      <remove name="OPTIONSVerbHandler"/>
+      <remove name="TRACEVerbHandler"/>
+      <add name="ExtensionlessUrlHandler-Integrated-4.0" path="*." verb="*" type="System.Web.Handlers.TransferRequestHandler" preCondition="integratedMode,runtimeVersionv4.0"/>
+    </handlers>
+  </system.webServer>
+</configuration>
