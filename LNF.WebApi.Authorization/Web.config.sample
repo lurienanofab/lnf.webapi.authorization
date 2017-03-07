@@ -16,7 +16,7 @@
     <swagger title="LNF.WebApi.Authorization" version="v1"/>
     <providers production="false">
       <context type="LNF.Impl.WebContextProvider, LNF.Impl" loginUrl="/login"/>
-      <dataAccess type="LNF.Impl.NHibernateWebDataAccess, LNF.Impl"/>
+      <dataAccess type="LNF.Impl.NHibernateWebDataAccess, LNF.Impl" universalPassword="*****"/>
       <encryption type="LNF.Impl.EncryptionProvider, LNF.Impl"/>
       <email type="LNF.Impl.Email.EmailProvider, LNF.Impl" host="127.0.0.1"/>
       <log type="LNF.Impl.Logging.ServiceLogProvider, LNF.Impl" name="LNF.WebApi.Authorization" enabled="true"/>
